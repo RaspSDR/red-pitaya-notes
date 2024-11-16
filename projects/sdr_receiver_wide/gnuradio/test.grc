@@ -72,14 +72,14 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [152, 84.0]
+    coordinate: [176, 84.0]
     rotation: 0
     state: enabled
 - name: rx_rate
   id: variable
   parameters:
     comment: ''
-    value: '3125000'
+    value: '3840000'
   states:
     bus_sink: false
     bus_source: false
@@ -101,7 +101,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [704, 136.0]
+    coordinate: [640, 104.0]
     rotation: 0
     state: true
 - name: audio_sink_0
@@ -118,7 +118,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1176, 144.0]
+    coordinate: [1104, 112.0]
     rotation: 0
     state: true
 - name: blocks_deinterleave_0
@@ -130,14 +130,114 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_streams: '2'
-    type: complex
+    num_streams: '4'
+    type: short
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [264, 264.0]
+    coordinate: [296, 296.0]
+    rotation: 0
+    state: true
+- name: blocks_float_to_complex_0
+  id: blocks_float_to_complex
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [752, 256.0]
+    rotation: 0
+    state: true
+- name: blocks_float_to_complex_0_0
+  id: blocks_float_to_complex
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [752, 384.0]
+    rotation: 0
+    state: true
+- name: blocks_short_to_float_0
+  id: blocks_short_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '32768'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 240.0]
+    rotation: 0
+    state: true
+- name: blocks_short_to_float_0_0
+  id: blocks_short_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '32768'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 304.0]
+    rotation: 0
+    state: true
+- name: blocks_short_to_float_0_0_0
+  id: blocks_short_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '32768'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 368.0]
+    rotation: 0
+    state: true
+- name: blocks_short_to_float_0_0_0_0
+  id: blocks_short_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '32768'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 432.0]
     rotation: 0
     state: true
 - name: low_pass_filter_0
@@ -161,7 +261,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 88.0]
+    coordinate: [416, 56.0]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
@@ -242,7 +342,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 260.0]
+    coordinate: [976, 244.0]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0_0
@@ -323,7 +423,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 364.0]
+    coordinate: [976, 372.0]
     rotation: 0
     state: true
 - name: rational_resampler_xxx_0
@@ -332,9 +432,9 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    decim: rx_rate//1000
+    decim: rx_rate//48000
     fbw: '0'
-    interp: '48'
+    interp: '1'
     maxoutbuf: '0'
     minoutbuf: '0'
     taps: ''
@@ -343,13 +443,13 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [952, 116.0]
+    coordinate: [880, 84.0]
     rotation: 0
     state: true
 - name: red_pitaya_source_0
   id: red_pitaya_source
   parameters:
-    addr: 192.168.1.100
+    addr: 10.1.1.160
     affinity: ''
     alias: ''
     comment: ''
@@ -364,15 +464,23 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 228.0]
+    coordinate: [8, 292.0]
     rotation: 0
     state: true
 
 connections:
 - [analog_wfm_rcv_0, '0', rational_resampler_xxx_0, '0']
-- [blocks_deinterleave_0, '0', low_pass_filter_0, '0']
-- [blocks_deinterleave_0, '0', qtgui_freq_sink_x_0, '0']
-- [blocks_deinterleave_0, '1', qtgui_freq_sink_x_0_0, '0']
+- [blocks_deinterleave_0, '0', blocks_short_to_float_0, '0']
+- [blocks_deinterleave_0, '1', blocks_short_to_float_0_0, '0']
+- [blocks_deinterleave_0, '2', blocks_short_to_float_0_0_0, '0']
+- [blocks_deinterleave_0, '3', blocks_short_to_float_0_0_0_0, '0']
+- [blocks_float_to_complex_0, '0', low_pass_filter_0, '0']
+- [blocks_float_to_complex_0, '0', qtgui_freq_sink_x_0, '0']
+- [blocks_float_to_complex_0_0, '0', qtgui_freq_sink_x_0_0, '0']
+- [blocks_short_to_float_0, '0', blocks_float_to_complex_0, '0']
+- [blocks_short_to_float_0_0, '0', blocks_float_to_complex_0, '1']
+- [blocks_short_to_float_0_0_0, '0', blocks_float_to_complex_0_0, '0']
+- [blocks_short_to_float_0_0_0_0, '0', blocks_float_to_complex_0_0, '1']
 - [low_pass_filter_0, '0', analog_wfm_rcv_0, '0']
 - [rational_resampler_xxx_0, '0', audio_sink_0, '0']
 - [red_pitaya_source_0, '0', blocks_deinterleave_0, '0']

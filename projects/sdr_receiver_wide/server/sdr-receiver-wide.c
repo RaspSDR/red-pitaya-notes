@@ -113,10 +113,10 @@ int main ()
     usleep(100);
     *rx_rst &= ~2;
     /* set default sample rate */
-    *rx_rate = 16;
+    *rx_rate = 6;
     /* set default phase increments */
-    rx_freq[0] = (uint32_t)floor(10000000 / 125.0e6 * (1<<30) + 0.5);
-    rx_freq[1] = (uint32_t)floor(10000000 / 125.0e6 * (1<<30) + 0.5);
+    rx_freq[0] = (uint32_t)floor(10000000 / 122.88e6 * (1<<30) + 0.5);
+    rx_freq[1] = (uint32_t)floor(10000000 / 122.88e6 * (1<<30) + 0.5);
 
     if((sock_client = accept(sock_server, NULL, NULL)) < 0)
     {
@@ -145,18 +145,18 @@ int main ()
         {
           case 0:
             /* set sample rate */
-            if(value < 16 || value > 8192) continue;
+            if(value < 6 || value > 64) continue;
             *rx_rate = value;
             break;
           case 1:
             /* set first phase increment */
-            if(value < 0 || value > 62500000) continue;
-            rx_freq[0] = (uint32_t)floor(value / 125.0e6 * (1<<30) + 0.5);
+            if(value < 0 || value > 61440000) continue;
+            rx_freq[0] = (uint32_t)floor(value / 122.88e6 * (1<<30) + 0.5);
             break;
           case 2:
             /* set second phase increment */
-            if(value < 0 || value > 62500000) continue;
-            rx_freq[1] = (uint32_t)floor(value / 125.0e6 * (1<<30) + 0.5);
+            if(value < 0 || value > 61440000) continue;
+            rx_freq[1] = (uint32_t)floor(value / 122.88e6 * (1<<30) + 0.5);
             break;
         }
       }

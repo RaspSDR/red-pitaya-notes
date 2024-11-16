@@ -30,7 +30,7 @@ parameters:
 
 outputs:
   - domain: stream
-    dtype: complex
+    dtype: short
 
 templates:
   imports: import red_pitaya
