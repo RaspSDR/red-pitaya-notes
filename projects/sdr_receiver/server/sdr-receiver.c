@@ -20,7 +20,7 @@ struct control
   int32_t freq[8];
 };
 
-const int rates[4] = {1000, 500, 250, 250};
+const int rates[4] = {1280, 640, 320, 160};
 
 int interrupted = 0;
 
@@ -92,10 +92,10 @@ int main(int argc, char *argv[])
   {
     *rx_rst &= ~1;
     *rx_sel = 0;
-    *rx_rate = 1000;
+    *rx_rate = 1280;
     for(i = 0; i < 8; ++i)
     {
-      rx_freq[i] = (uint32_t)floor(600000 / 125.0e6 * (1 << 30) + 0.5);
+      rx_freq[i] = (uint32_t)floor(600000 / 122.88e6 * (1 << 30) + 0.5);
     }
 
     if((sock_client = accept(sock_server, NULL, NULL)) < 0)
@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
         /* set rx phase increments */
         for(i = 0; i < 8; ++i)
         {
-          rx_freq[i] = (uint32_t)floor(ctrl.freq[i] / 125.0e6 * (1 << 30) + 0.5);
+          rx_freq[i] = (uint32_t)floor(ctrl.freq[i] / 122.88e6 * (1 << 30) + 0.5);
         }
       }
 
