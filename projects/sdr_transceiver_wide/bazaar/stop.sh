@@ -1,1 +1,0 @@
-killall sdr-transceiver-wide
