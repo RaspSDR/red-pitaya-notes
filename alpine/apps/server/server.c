@@ -52,7 +52,6 @@ int main(int argc, char *argv[])
   char buffer[256];
   char path[291];
   char *end;
-  long freq;
   volatile int *slcr;
 
   if((fd = open("/dev/mem", O_RDWR)) < 0)
@@ -63,12 +62,6 @@ int main(int argc, char *argv[])
 
   slcr = mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0xF8000000);
   id = (slcr[332] >> 12) & 0x1f;
-
-  freq = (argc == 2) ? strtol(argv[1], &end, 10) : -1;
-  if(errno != 0 || end == argv[1] || freq < 0)
-  {
-    freq = 125;
-  }
 
   if(fgets(buffer, 256, stdin) == NULL)
   {
@@ -131,14 +124,7 @@ int main(int argc, char *argv[])
   {
     memcpy(path + 21 + i - 4, "/start.sh", 10);
     detach(path);
-    if(top && id == 7 && freq == 122)
-    {
-      memcpy(path + 21 + i - 4, "/index_122_88.html", 19);
-    }
-    else
-    {
-      memcpy(path + 21 + i - 4, "/index.html", 12);
-    }
+    memcpy(path + 21 + i - 4, "/index.html", 12);
   }
 
   fp = fopen(path, "r");

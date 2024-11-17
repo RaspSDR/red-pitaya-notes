@@ -10,3 +10,5 @@ tmp
 uImage
 .vscode
 .Xil
+alpine-modloop/
+alpine-apk/
