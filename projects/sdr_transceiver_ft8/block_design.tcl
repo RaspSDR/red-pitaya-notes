@@ -2,15 +2,15 @@
 cell xilinx.com:ip:clk_wiz pll_0 {
   PRIMITIVE PLL
   PRIM_IN_FREQ.VALUE_SRC USER
-  PRIM_IN_FREQ 125.0
+  PRIM_IN_FREQ 122.88
   PRIM_SOURCE Differential_clock_capable_pin
   CLKOUT1_USED true
-  CLKOUT1_REQUESTED_OUT_FREQ 125.0
+  CLKOUT1_REQUESTED_OUT_FREQ 122.88
   CLKOUT2_USED true
-  CLKOUT2_REQUESTED_OUT_FREQ 250.0
+  CLKOUT2_REQUESTED_OUT_FREQ 245.76
   CLKOUT2_REQUESTED_PHASE 157.5
   CLKOUT3_USED true
-  CLKOUT3_REQUESTED_OUT_FREQ 250.0
+  CLKOUT3_REQUESTED_OUT_FREQ 245.76
   CLKOUT3_REQUESTED_PHASE 202.5
   USE_RESET false
 } {
@@ -47,30 +47,11 @@ cell xilinx.com:ip:proc_sys_reset rst_0 {} {
 # ADC
 
 # Create axis_red_pitaya_adc
-cell pavel-demin:user:axis_red_pitaya_adc adc_0 {
-  ADC_DATA_WIDTH 14
+cell pavel-demin:user:adc_buf adc_0 {
+  ADC_DATA_WIDTH 16
 } {
   aclk pll_0/clk_out1
   adc_dat_a adc_dat_a_i
-  adc_dat_b adc_dat_b_i
-  adc_csn adc_csn_o
-}
-
-# DAC
-
-# Create axis_red_pitaya_dac
-cell pavel-demin:user:axis_red_pitaya_dac dac_0 {
-  DAC_DATA_WIDTH 14
-} {
-  aclk pll_0/clk_out1
-  ddr_clk pll_0/clk_out2
-  wrt_clk pll_0/clk_out3
-  locked pll_0/locked
-  dac_clk dac_clk_o
-  dac_rst dac_rst_o
-  dac_sel dac_sel_o
-  dac_wrt dac_wrt_o
-  dac_dat dac_dat_o
 }
 
 # HUB
@@ -125,31 +106,6 @@ module rx_0 {
   conv_2/M_AXIS hub_0/S00_AXIS
 }
 
-# TX 0
-
-# Create port_slicer
-cell pavel-demin:user:port_slicer rst_slice_1 {
-  DIN_WIDTH 352 DIN_FROM 15 DIN_TO 8
-} {
-  din hub_0/cfg_data
-}
-
-# Create port_slicer
-cell pavel-demin:user:port_slicer cfg_slice_1 {
-  DIN_WIDTH 352 DIN_FROM 351 DIN_TO 320
-} {
-  din hub_0/cfg_data
-}
-
-module tx_0 {
-  source projects/sdr_transceiver_ft8/tx.tcl
-} {
-  slice_0/din rst_slice_1/dout
-  slice_1/din cfg_slice_1/dout
-  slice_2/din cfg_slice_1/dout
-  fifo_0/S_AXIS hub_0/M00_AXIS
-  zeroer_0/M_AXIS dac_0/S_AXIS
-}
 
 # GPIO, PPS and level measurement
 
