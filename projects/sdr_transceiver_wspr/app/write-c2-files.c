@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
   struct tm *gmt;
   volatile void *cfg, *sts;
   volatile uint64_t *fifo;
-  volatile uint8_t *rst, *sel;
+  volatile uint8_t *rst;
   volatile uint16_t *cntr;
   int32_t type = 2;
   uint64_t *buffer;
@@ -29,8 +29,6 @@ int main(int argc, char *argv[])
   double dialfreq;
   double corr;
   double freq[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  int chan[8] = {1, 1, 1, 1, 1, 1, 1, 1};
-  uint8_t value = 0;
 
   if(argc != 2)
   {
@@ -88,20 +86,6 @@ int main(int argc, char *argv[])
       fprintf(stderr, "No 'freq' setting in element %d.\n", i);
       return EXIT_FAILURE;
     }
-
-    if(!config_setting_lookup_int(element, "chan", &chan[i]))
-    {
-      fprintf(stderr, "No 'chan' setting in element %d.\n", i);
-      return EXIT_FAILURE;
-    }
-
-    if(chan[i] < 1 || chan[i] > 2)
-    {
-      fprintf(stderr, "Wrong 'chan' setting in element %d.\n", i);
-      return EXIT_FAILURE;
-    }
-
-    value |= (chan[i] - 1) << i;
   }
 
   t = time(NULL);
@@ -123,14 +107,11 @@ int main(int argc, char *argv[])
 
   for(i = 0; i < 8; ++i)
   {
-    *(uint32_t *)(cfg + 8 + i * 4) = (uint32_t)floor((1.0 + 1.0e-6 * corr) * freq[i] / 125.0 * (1<<30) + 0.5);
+    *(uint32_t *)(cfg + 8 + i * 4) = (uint32_t)floor((1.0 + 1.0e-6 * corr) * freq[i] / 122.88 * (1<<30) + 0.5);
   }
 
   rst = (uint8_t *)(cfg + 0);
-  sel = (uint8_t *)(cfg + 4);
   cntr = (uint16_t *)(sts + 0);
-
-  *sel = value;
 
   *rst &= ~1;
   *rst |= 1;
@@ -158,7 +139,7 @@ int main(int argc, char *argv[])
   {
     dialfreq = freq[i] - 0.0015;
     strftime(date, 12, "%y%m%d_%H%M", gmt);
-    sprintf(name, "wspr_%d_%d_%d_%s.c2", i, (uint32_t)(dialfreq * 1.0e6), chan[i], date);
+    sprintf(name, "wspr_%d_%d_%d_%s.c2", i, (uint32_t)(dialfreq * 1.0e6), 1, date);
     if((fp = fopen(name, "wb")) == NULL)
     {
       fprintf(stderr, "Cannot open output file %s.\n", name);

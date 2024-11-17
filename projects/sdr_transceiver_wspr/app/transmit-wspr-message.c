@@ -111,8 +111,8 @@ int main(int argc, char *argv[])
   cfg = mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0x40000000);
   fifo = mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0x42000000);
 
-  coef[0] = (uint16_t *)(cfg + 40);
-  coef[1] = (uint16_t *)(cfg + 42);
+  coef[0] = (uint16_t *)(cfg + 72);
+  coef[1] = (uint16_t *)(cfg + 74);
 
   level = level > -90.0 ? floor(32766 * pow(10.0, level / 20.0) + 0.5) : 0.0;
 
@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
 
   for(i = 0; i < 162; ++i)
   {
-    dphi = (freq * 1.0e6 + ((double)symbols[i] - 1.5) * 375.0 / 256.0) / 125.0e6;
+    dphi = (freq * 1.0e6 + ((double)symbols[i] - 1.5) * 375.0 / 256.0) / 122.88e6;
     *fifo = (uint32_t)floor((1.0 + 1.0e-6 * corr) * dphi * (1<<30) + 0.5);
   }
 
