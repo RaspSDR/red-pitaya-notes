@@ -44,7 +44,7 @@ cell pavel-demin:user:port_slicer led_slice_0 {
 
 # Create port_slicer
 cell pavel-demin:user:port_slicer out_slice_0 {
-  DIN_WIDTH 64 DIN_FROM 29 DIN_TO 24
+  DIN_WIDTH 64 DIN_FROM 31 DIN_TO 24
 } {
   din hub_0/cfg_data
   dout /antenna_o

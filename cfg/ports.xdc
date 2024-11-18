@@ -30,20 +30,6 @@ set_property PACKAGE_PIN V16 [get_ports {adc_dat_a_i[15]}]
 set_property IOSTANDARD LVCMOS18 [get_ports adc_ofl_i]
 set_property PACKAGE_PIN P20 [get_ports adc_ofl_i]
 
-### adc pga
-set_property IOSTANDARD LVCMOS33 [get_ports adc_pga_o]
-set_property SLEW SLOW [get_ports adc_pga_o]
-set_property DRIVE 8 [get_ports adc_pga_o]
-
-set_property PACKAGE_PIN K14 [get_ports adc_pga_o]
-
-### adc dither
-set_property IOSTANDARD LVCMOS33 [get_ports adc_dith_o]
-set_property SLEW SLOW [get_ports adc_dith_o]
-set_property DRIVE 8 [get_ports adc_dith_o]
-
-set_property PACKAGE_PIN J15 [get_ports adc_dith_o]
-
 # clock input
 
 set_property IOSTANDARD DIFF_HSTL_I_18 [get_ports adc_clk_p_i]
@@ -67,6 +53,12 @@ set_property PACKAGE_PIN H16 [get_ports {antenna_o[2]}]
 set_property PACKAGE_PIN H17 [get_ports {antenna_o[3]}]
 set_property PACKAGE_PIN J18 [get_ports {antenna_o[4]}]
 set_property PACKAGE_PIN H18 [get_ports {antenna_o[5]}]
+
+# PGA
+set_property PACKAGE_PIN K14 [get_ports {antenna_o[6]}]
+
+# Dith
+set_property PACKAGE_PIN J15 [get_ports {antenna_o[7]}]
 
 ### LED
 
