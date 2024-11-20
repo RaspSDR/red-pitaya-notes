@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
   *gpio = 0;
 
   /* set default rx phase increment */
-  *rx_freq = (uint32_t)floor(600000/125.0e6*(1<<30)+0.5);
+  *rx_freq = (uint32_t)floor(600000/122.88e6*(1<<30)+0.5);
   *rx_sync = 0;
   /* set default rx mask */
   *rx_mask = 1;
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
   *rx_rate = 625;
 
   /* set default tx phase increment */
-  *tx_freq = (uint32_t)floor(600000/125.0e6*(1<<30)+0.5);
+  *tx_freq = (uint32_t)floor(600000/122.88e6*(1<<30)+0.5);
   *tx_sync = 0;
   /* set default tx mask */
   *tx_mask = 1;
@@ -150,7 +150,7 @@ void *rx_ctrl_handler(void *arg)
   uint32_t command, freq;
 
   /* set default rx phase increment */
-  *rx_freq = (uint32_t)floor(600000/125.0e6*(1<<30)+0.5);
+  *rx_freq = (uint32_t)floor(600000/122.88e6*(1<<30)+0.5);
   *rx_sync = 0;
   /* set default rx mask */
   *rx_mask = 1;
@@ -166,7 +166,7 @@ void *rx_ctrl_handler(void *arg)
         /* set rx phase increment */
         freq = command & 0xfffffff;
         if(freq < freq_min || freq > freq_max) continue;
-        *rx_freq = (uint32_t)floor(freq/125.0e6*(1<<30)+0.5);
+        *rx_freq = (uint32_t)floor(freq/122.88e6*(1<<30)+0.5);
         *rx_sync = freq > 0 ? 0 : 1;
         break;
       case 1:
@@ -174,25 +174,25 @@ void *rx_ctrl_handler(void *arg)
         switch(command & 7)
         {
           case 0:
-            *rx_rate = 3125;
+            *rx_rate = 1920;
             break;
           case 1:
-            *rx_rate = 1250;
+            *rx_rate = 960;
             break;
           case 2:
-            *rx_rate = 625;
+            *rx_rate = 480;
             break;
           case 3:
-            *rx_rate = 250;
+            *rx_rate = 240;
             break;
           case 4:
-            *rx_rate = 125;
+            *rx_rate = 120;
             break;
           case 5:
-            *rx_rate = 50;
+            *rx_rate = 60;
             break;
           case 6:
-            *rx_rate = 25;
+            *rx_rate = 30;
             break;
         }
         break;
@@ -204,7 +204,7 @@ void *rx_ctrl_handler(void *arg)
   }
 
   /* set default rx phase increment */
-  *rx_freq = (uint32_t)floor(600000/125.0e6*(1<<30)+0.5);
+  *rx_freq = (uint32_t)floor(600000/122.88e6*(1<<30)+0.5);
   *rx_sync = 0;
   /* set default rx mask */
   *rx_mask = 1;
@@ -253,7 +253,7 @@ void *tx_ctrl_handler(void *arg)
   /* set PTT pin to low */
   *gpio = 0;
   /* set default tx phase increment */
-  *tx_freq = (uint32_t)floor(600000/125.0e6*(1<<30)+0.5);
+  *tx_freq = (uint32_t)floor(600000/122.88e6*(1<<30)+0.5);
   *tx_sync = 0;
   /* set default tx mask */
   *tx_mask = 1;
@@ -269,7 +269,7 @@ void *tx_ctrl_handler(void *arg)
         /* set tx phase increment */
         freq = command & 0xfffffff;
         if(freq < freq_min || freq > freq_max) continue;
-        *tx_freq = (uint32_t)floor(freq/125.0e6*(1<<30)+0.5);
+        *tx_freq = (uint32_t)floor(freq/122.88e6*(1<<30)+0.5);
         *tx_sync = freq > 0 ? 0 : 1;
         break;
       case 1:
@@ -312,7 +312,7 @@ void *tx_ctrl_handler(void *arg)
   /* set PTT pin to low */
   *gpio = 0;
   /* set default tx phase increment */
-  *tx_freq = (uint32_t)floor(600000/125.0e6*(1<<30)+0.5);
+  *tx_freq = (uint32_t)floor(600000/122.88e6*(1<<30)+0.5);
   *tx_sync = 0;
   /* set default tx mask */
   *tx_mask = 1;

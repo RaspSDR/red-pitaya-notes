@@ -1,7 +1,7 @@
 library(signal)
 
 # CIC filter parameters
-R <- 25                        # Decimation factor
+R <- 30                        # Decimation factor
 M <- 1                         # Differential delay
 N <- 6                         # Number of stages
 
@@ -27,7 +27,8 @@ h <- fir2(L, f, Mf, window=kaiser(L+1, Beta))
 h <- h / sum(h)
 
 # Print filter coefficients
-paste(sprintf("%.10e", h), collapse=", ")
+formatted_coeffs <- paste(sprintf("%.10e", h), collapse=", ")
+cat(formatted_coeffs, "\n")
 
 fh <- freqz(h)
 

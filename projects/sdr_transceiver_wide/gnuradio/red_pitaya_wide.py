@@ -26,7 +26,7 @@ from gnuradio import gr, blocks
 class source(gr.hier_block2):
   '''Red Pitaya Wide Source'''
 
-  rates = {20000:0, 50000:1, 100000:2, 250000:3, 500000:4, 1250000:5, 2500000:6}
+  rates = {32000:0, 64000:1, 128000:2, 256000:3, 512000:4, 1024000:5, 2048000:6}
 
   def __init__(self, addr, port, freq, rate, mask, corr):
     gr.hier_block2.__init__(
@@ -55,7 +55,7 @@ class source(gr.hier_block2):
       code = source.rates[rate]
       self.ctrl_sock.send(struct.pack('<I', 1<<28 | code))
     else:
-      raise ValueError("acceptable sample rates are 20k, 50k, 100k, 250k, 500k, 1250k, 2500k")
+      raise ValueError("acceptable sample rates are 32k, 64k, 128k, 256k, 512k, 1024k, 2048")
 
   def set_mask(self, mask):
     self.ctrl_sock.send(struct.pack('<I', 2<<28 | mask))
@@ -63,7 +63,7 @@ class source(gr.hier_block2):
 class sink(gr.hier_block2):
   '''Red Pitaya Wide Sink'''
 
-  rates = {20000:0, 50000:1, 100000:2, 250000:3, 500000:4, 1250000:5, 2500000:6}
+  rates = {32000:0, 64000:1, 128000:2, 256000:3, 512000:4, 1024000:5, 2048000:6}
 
   def __init__(self, addr, port, freq, rate, mask, corr, ptt):
     gr.hier_block2.__init__(
@@ -101,7 +101,7 @@ class sink(gr.hier_block2):
       code = sink.rates[rate]
       self.ctrl_sock.send(struct.pack('<I', 1<<28 | code))
     else:
-      raise ValueError("acceptable sample rates are 20k, 50k, 100k, 250k, 500k, 1250k, 2500k")
+      raise ValueError("acceptable sample rates are 32k, 64k, 128k, 256k, 512k, 1024k, 2048")
 
   def set_mask(self, mask):
     self.ctrl_sock.send(struct.pack('<I', 2<<28 | mask))
