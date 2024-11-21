@@ -44,12 +44,18 @@ cell xilinx.com:ip:proc_sys_reset rst_0 {} {
 
 # ADC
 
-# Create adc_buf
-cell pavel-demin:user:adc_buf adc_0 {
+# Create axis_red_pitaya_adc
+cell xilinx.com:ip:xlconstant const_adc_dummy_b {
+  CONST_WIDTH 16
+  CONST_VAL 0
+}
+
+cell pavel-demin:user:axis_red_pitaya_adc  adc_0 {
   ADC_DATA_WIDTH 16
 } {
   aclk pll_0/clk_out1
   adc_dat_a adc_dat_a_i
+  adc_dat_b const_adc_dummy_b/dout
 }
 
 # TRX
