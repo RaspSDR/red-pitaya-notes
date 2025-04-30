@@ -18,3 +18,7 @@ create_bd_port -dir O -from 7 -to 0 antenna_o
 ### LED
 
 create_bd_port -dir O led_o
+
+### XADC
+
+create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 Vp_Vn
